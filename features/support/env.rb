@@ -4,8 +4,10 @@ require 'rspec'
 require 'selenium-webdriver'
 require 'capybara'
 require 'capybara/dsl'
+require 'rest-client'
 
 Capybara.register_driver :selenium do |app|
+  # noinspection RubyArgCount
   Capybara::Selenium::Driver.new(app, browser: :firefox)
 end
 
