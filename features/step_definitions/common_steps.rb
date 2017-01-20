@@ -5,8 +5,8 @@ Given(/^I visit google home page$/) do
 end
 
 Given(/^I get a response from swagger$/) do
-  resp = RestClient.get "http://petstore.swagger.io/v2/pet/findByStatus?status=available"
+  resp = RestClient.get "http://petstore.swagger.io/v2/pet/findByStatus?status=very-available"
   p resp.code
   p JSON.parse(resp)
-  4.should eq 5
+  4.should eq 6
 end

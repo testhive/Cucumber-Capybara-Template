@@ -19,4 +19,6 @@ Capybara.default_max_wait_time = 10
 
 Capybara.app_host = 'http://www.google.com'
 
+$petstore_url = "http://petstore.swagger.io/v2/pet"
+
 World(Capybara::DSL)
