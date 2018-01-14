@@ -7,3 +7,25 @@ After do |scenario|
     end
   end
 end
+
+at_exit do
+  require 'rspec'
+  include RSpec::Matchers
+
+  if ENV['security'] == 'true'
+    response = JSON.parse RestClient.get "#{$zap_proxy}:#{$zap_port}/json/core/view/alerts"
+    events = response['alerts']
+    events.each { |x| p x }
+    high_risks = events.select{|x| x['risk'] == 'High'}
+    high_count = high_risks.size
+    medium_count = events.select{|x| x['risk'] == 'Medium'}.size
+    low_count = events.select{|x| x['risk'] == 'Low'}.size
+    informational_count = events.select{|x| x['risk'] == 'Informational'}.size
+
+    if high_count > 0
+      high_risks.each { |x| p x['alert'] }
+    end
+
+    expect(high_count).to eq 0
+  end
+end

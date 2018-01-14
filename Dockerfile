@@ -1,34 +1,43 @@
-FROM ruby:2.2.2
+FROM ruby:2.4.1
 
+RUN apt-get update && apt-get install -y --fix-missing curl unzip
+
+# Install Chrome WebDriver
+RUN CHROMEDRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE` && \
+    mkdir -p /opt/chromedriver-$CHROMEDRIVER_VERSION && \
+    curl -sS -o /tmp/chromedriver_linux64.zip http://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip && \
+    unzip -qq /tmp/chromedriver_linux64.zip -d /opt/chromedriver-$CHROMEDRIVER_VERSION && \
+    rm /tmp/chromedriver_linux64.zip && \
+    chmod +x /opt/chromedriver-$CHROMEDRIVER_VERSION/chromedriver && \
+    ln -fs /opt/chromedriver-$CHROMEDRIVER_VERSION/chromedriver /usr/local/bin/chromedriver
+
+# Install Google Chrome
+RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list && \
+    apt-get -yqq update && \
+    apt-get -yqq install google-chrome-stable && \
+    rm -rf /var/lib/apt/lists/*
+
+#Configuring the tests to run in the container
 RUN mkdir /app
 WORKDIR /app
 RUN gem update
 
 ADD Gemfile /app/Gemfile
 ADD Gemfile.lock /app/Gemfile.lock
+ADD cucumber.yml /app/cucumber.yml
 
 RUN bundle install
 
-RUN apt-get update && apt-get install -y --fix-missing iceweasel xvfb
-
-ENV   GECKODRIVER_VERSION v0.13.0
-RUN   mkdir -p /opt/geckodriver_folder
-RUN   wget -O /tmp/geckodriver_linux64.tar.gz https://github.com/mozilla/geckodriver/releases/download/$GECKODRIVER_VERSION/geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz
-RUN   tar xf /tmp/geckodriver_linux64.tar.gz -C /opt/geckodriver_folder
-RUN   rm /tmp/geckodriver_linux64.tar.gz
-RUN   chmod +x /opt/geckodriver_folder/geckodriver
-RUN   ln -fs /opt/geckodriver_folder/geckodriver /usr/local/bin/geckodriver
-
 ADD features /app/features
+ADD build /app/build
 
-ADD cucumber-command.sh /app/cucumber-command.sh
-RUN chmod a+x /app/cucumber-command.sh
+#ADD cucumber-command.sh /app/cucumber-command.sh
+#RUN chmod a+x /app/cucumber-command.sh
+#
+#CMD bash cucumber-command.sh
 
-CMD xvfb-run --server-args="-screen 0 1440x900x24" bash cucumber-command.sh
+ADD cucumber-command-parallel.sh /app/cucumber-command-parallel.sh
+RUN chmod a+x /app/cucumber-command-parallel.sh
 
-# ADD run.sh /run.sh
-# RUN chmod a+x /run.sh
-# CMD /run.sh
-# ENTRYPOINT Xvfb :99 -screen 0 1440x900x24 &
-# CMD xvfb-run --server-args="-screen 0 1440x900x24" cucumber features --format pretty --format html --out docker-html-report.html
-# CMD ["/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x24"]
+CMD bash cucumber-command-parallel.sh
