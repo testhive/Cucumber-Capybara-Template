@@ -27,7 +27,6 @@ WORKDIR /app
 
 ADD Gemfile /app/Gemfile
 ADD Gemfile.lock /app/Gemfile.lock
-ADD cucumber.yml /app/cucumber.yml
 ADD features /app/features
 ADD build /app/build
 

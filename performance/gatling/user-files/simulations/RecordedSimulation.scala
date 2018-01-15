@@ -36,5 +36,7 @@ class RecordedSimulation extends Simulation {
 		.get("/v2/pet/${timestamp}")
 		.check(status.is(404)))
 	
-	setUp(scn.inject(rampUsers(4) over (2 seconds))).protocols(httpProtocol)
+	setUp(scn.inject(rampUsers(4) over (2 seconds)))
+	.protocols(httpProtocol)
+	.assertions(forAll.failedRequests.percent.lte(5))
 }

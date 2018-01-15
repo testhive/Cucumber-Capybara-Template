@@ -3,7 +3,10 @@ browser="headless-firefox"
 
 mkdir build
 mkdir build/reruns
+mkdir build/reports
 rm -f build/reruns/*
+rm -f build/reports/*
+
 docker build -f Dockerfile.firefox -t testhive-regression .
 docker stop $(docker ps -aq -f "name=th-regression") || true && docker rm $(docker ps -aq -f "name=th-regression") || true
 

@@ -8,6 +8,12 @@ After do |scenario|
   end
 end
 
+# Before do
+#   if ENV['BROWSER'] == "headless-firefox" || ENV['BROWSER'] == "firefox"
+#     page.driver.browser.manage.window.resize_to(1440,900)
+#   end
+# end
+
 at_exit do
   require 'rspec'
   include RSpec::Matchers

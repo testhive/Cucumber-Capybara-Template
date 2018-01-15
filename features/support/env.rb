@@ -34,7 +34,7 @@ Capybara.register_driver :selenium do |app|
     # noinspection RubyArgCount
     Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
   else
-    arguments = ["window-size=1920,1080"]
+    arguments = ["start-maximized"]
     preferences = {
         'download.default_directory': File.expand_path(File.join(File.dirname(__FILE__), "../../downloads/")),
         'download.prompt_for_download': false,
