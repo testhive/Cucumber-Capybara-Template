@@ -1,5 +1,5 @@
 Given(/^I visit eksisozluk mainpage$/) do
-  visit 'http://www.eksisozluk.com'
+  safe_visit 'http://www.eksisozluk.com'
   expect(page).to have_selector('#search-textbox')
 end
 
@@ -16,6 +16,7 @@ Then(/^I should see more than "([^"]*)" pages of entries$/) do |page_count|
 end
 
 When(/^I go to first topic in highlights$/) do
+  find_by_id('quick-index-nav').find('a', text: "gündem").click
   find('.topic-list').find('li', match: :first).click
 end
 

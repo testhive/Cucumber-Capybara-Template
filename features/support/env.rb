@@ -12,14 +12,12 @@ Capybara.register_driver :selenium do |app|
   browser = ENV['BROWSER']
   if browser == "firefox"
     profile = Selenium::WebDriver::Firefox::Profile.new
-    profile["network.http.phishy-userpass-length"] = "255"
     options = Selenium::WebDriver::Firefox::Options.new(profile: profile)
     # noinspection RubyArgCount
     Capybara::Selenium::Driver.new(app, browser: :firefox, options: options)
   elsif browser == "headless-firefox"
     ENV['MOZ_HEADLESS'] = '1'
     profile = Selenium::WebDriver::Firefox::Profile.new
-    profile["network.http.phishy-userpass-length"] = "255"
     options = Selenium::WebDriver::Firefox::Options.new(profile: profile)
     # noinspection RubyArgCount
     Capybara::Selenium::Driver.new(app, browser: :firefox, options: options)

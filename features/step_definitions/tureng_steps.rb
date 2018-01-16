@@ -1,5 +1,5 @@
 Given(/^I visit tureng main page$/) do
-  visit 'http://www.tureng.com'
+  safe_visit 'http://www.tureng.com'
   expect(page).to have_selector('#searchTerm')
 end
 

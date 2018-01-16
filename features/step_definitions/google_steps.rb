@@ -1,5 +1,5 @@
 Given(/^I visit google home page$/) do
-	visit ''	
+	safe_visit ''
   expect(page).to have_selector("#lst-ib")
 end
 

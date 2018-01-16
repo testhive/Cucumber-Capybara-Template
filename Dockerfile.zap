@@ -27,8 +27,6 @@ WORKDIR /app
 
 ADD Gemfile /app/Gemfile
 ADD Gemfile.lock /app/Gemfile.lock
-ADD features /app/features
-ADD build /app/build
 
 RUN /bin/bash -l -c "gem update" && \
     /bin/bash -l -c "bundle install"
@@ -37,8 +35,8 @@ RUN curl -s https://raw.githubusercontent.com/zaproxy/zap-admin/master/ZapVersio
 
 ADD features /app/features
 ADD build /app/build
-
 ADD cucumber-command-parallel.sh /app/cucumber-command-parallel.sh
+
 RUN chmod a+x /app/cucumber-command-parallel.sh
 
 CMD   cd ZAP* && \

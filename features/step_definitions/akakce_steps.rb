@@ -1,5 +1,5 @@
 Given(/^I visit akakce main page$/) do
-  visit 'http://www.akakce.com'
+  safe_visit 'http://www.akakce.com'
   expect(page).to have_selector('#q')
 end
 

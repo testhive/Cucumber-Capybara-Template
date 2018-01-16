@@ -6,8 +6,8 @@ Feature: Make a search on Google
 
   Scenario: Visit google home page
     Given I visit google home page
-    When I search for "alper mermer"
-    Then I should see "@alpermermer" on search results
+    When I search for "michael jackson"
+    Then I should see "Michael Jackson - Wikipedia" on search results
 
   Scenario: Search with no result
     Given I visit google home page
