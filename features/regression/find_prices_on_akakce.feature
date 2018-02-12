@@ -12,4 +12,4 @@ Feature: Price search on Akakce
   Scenario: Select a product category to see prices
     Given I visit akakce main page
     When I navigate to category "Elektronik > Cep telefonu"
-    Then Highest price should be more than "6500" TRY
+    Then Highest price should be more than "6000" TRY

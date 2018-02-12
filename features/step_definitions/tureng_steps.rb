@@ -4,9 +4,10 @@ Given(/^I visit tureng main page$/) do
 end
 
 When(/^I try to translate "([^"]*)" from Turkish to English$/) do |turkish_term|
-  search_area = find_by_id('searchTerm')
-  search_area.set turkish_term
-  find('.btn-turengsearch').click
+  search_area = find('.tureng-searchform')
+  text_field = search_area.find_by_id('searchTerm')
+  text_field.set turkish_term
+  search_area.find('.btn-turengsearch').click
 end
 
 Then(/^One of the translations should include "([^"]*)"$/) do |translation|
