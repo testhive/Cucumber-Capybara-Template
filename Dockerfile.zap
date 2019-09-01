@@ -7,7 +7,7 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y rvm
 
-ENV  RUBY_VERSION 2.4.1
+ENV  RUBY_VERSION 2.6.3
 RUN  /bin/bash -l -c "rvm install $RUBY_VERSION" && \
      /bin/bash -l -c "gem install bundler --no-ri --no-rdoc"
 

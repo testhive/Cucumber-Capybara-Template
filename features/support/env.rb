@@ -7,6 +7,21 @@ require 'capybara/dsl'
 require 'rest-client'
 require 'pdf-reader'
 
+if ENV['docker_run'] != "true"
+  if (/darwin/ =~ RUBY_PLATFORM) != nil
+    Selenium::WebDriver::Chrome.driver_path = "webdriver_binaries/macosx/chromedriver"
+    Selenium::WebDriver::Firefox.driver_path = "webdriver_binaries/macosx/geckodriver"
+  elsif (/mingw/ =~ RUBY_PLATFORM) != nil
+    Selenium::WebDriver::Chrome.driver_path = "webdriver_binaries/windows/chromedriver.exe"
+    Selenium::WebDriver::Firefox.driver_path = "webdriver_binaries/windows/geckodriver.exe"
+    Selenium::WebDriver::IE.driver_path = "webdriver_binaries/windows/IEDriverServer.exe"
+  else
+    Selenium::WebDriver::Chrome.driver_path = "webdriver_binaries/linux/chromedriver"
+    Selenium::WebDriver::Firefox.driver_path = "webdriver_binaries/linux/geckodriver"
+  end
+
+end
+
 browser = ENV['BROWSER']
 Capybara.register_driver :selenium do |app|
   browser = ENV['BROWSER']
