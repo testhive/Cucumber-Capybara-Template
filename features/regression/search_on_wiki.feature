@@ -11,5 +11,5 @@ Feature: Make a search on Google
 
   Scenario: Search with no result
     Given I visit wiki home page
-    When I search for "eric cartman"
+    When I search for "ajhasdfgjhsdafgguweryug23452324"
     Then There should be no results on page

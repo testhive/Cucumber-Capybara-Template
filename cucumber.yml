@@ -1,1 +1,1 @@
-default: --format pretty -f html -o test_report.html --publish-quiet
+default: --format pretty --publish-quiet

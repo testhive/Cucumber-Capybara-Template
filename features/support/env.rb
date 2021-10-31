@@ -6,10 +6,7 @@ require 'capybara'
 require 'capybara/dsl'
 require 'rest-client'
 require 'webdrivers'
-require 'capybara-screenshot/cucumber'
 
-Capybara::Screenshot.prune_strategy = :keep_last_run
-Capybara.save_path = './screenshots'
 Webdrivers.install_dir = './webdrivers'
 
 # Capybara.register_driver :selenium do |app|
@@ -80,7 +77,7 @@ Capybara.run_server = false
 Capybara.default_driver = current_driver
 Capybara.javascript_driver = current_driver
 Capybara.default_selector = :css
-Capybara.default_max_wait_time = 10
+Capybara.default_max_wait_time = 3
 
 Capybara.app_host = 'http://www.google.com'
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-browser="headless-chrome"
+browser="chrome_headless"
 
 mkdir build
 mkdir build/reruns
