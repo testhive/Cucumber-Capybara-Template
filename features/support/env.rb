@@ -64,6 +64,16 @@ browser = ENV['BROWSER'] if ENV['BROWSER']
 if browser.downcase == "chrome"
   current_driver = :selenium_chrome
 elsif browser.downcase == "chrome_headless"
+  Capybara.register_driver :selenium_chrome_headless do |app|
+    arguments = ["headless","disable-gpu", "no-sandbox", "window-size=1920,1080", "privileged"]
+    # preferences = {
+    #     'download.default_directory': File.expand_path(File.join(File.dirname(__FILE__), "../../downloads/")),
+    #     'download.prompt_for_download': false,
+    #     'plugins.plugins_disabled': ["Chrome PDF Viewer"],
+    # }
+    options = Selenium::WebDriver::Chrome::Options.new(args: arguments)
+    Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+  end
   current_driver = :selenium_chrome_headless
 elsif browser.downcase == "firefox"
   current_driver = :selenium
@@ -77,7 +87,7 @@ Capybara.run_server = false
 Capybara.default_driver = current_driver
 Capybara.javascript_driver = current_driver
 Capybara.default_selector = :css
-Capybara.default_max_wait_time = 3
+Capybara.default_max_wait_time = 5
 
 Capybara.app_host = 'http://www.google.com'
 

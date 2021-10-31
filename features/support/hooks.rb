@@ -49,7 +49,6 @@ at_exit do
     }.to_json
 
     report.puts new_json
-
     report.close
 
     p "Security report saved at: #{dir_path + "/#{filename}"}"

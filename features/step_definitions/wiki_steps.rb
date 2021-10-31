@@ -14,3 +14,11 @@ end
 Then(/^There should be no results on page$/) do
   expect(page).to have_selector ".mw-search-nonefound"
 end
+
+When(/^I browse to "([^"]*)" section$/) do |term|
+  find("[title='Portal:#{term}']").click
+end
+
+Then(/^I should see Science page title$/) do
+  expect(page).to have_selector("#Science_portal")
+end
