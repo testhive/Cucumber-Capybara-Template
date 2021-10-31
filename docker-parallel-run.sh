@@ -23,8 +23,6 @@ done
 
 result_codes=$(docker wait $(docker ps -q -f "name=th-regression"))
 
-rm results/reports/build_logs.txt
-
 for i in $(seq 1 $index); do
     docker logs th-regression${i} >> results/reports/build_logs.txt
     docker cp th-regression${i}:/app/results/reports results
