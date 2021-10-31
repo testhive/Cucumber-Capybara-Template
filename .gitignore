@@ -6,3 +6,5 @@ rerun.txt
 *.ipr
 *.iws
 build
+webdrivers
+screenshots

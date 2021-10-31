@@ -1,1 +1,0 @@
-{"id":${timestamp},"category":{"id":${timestamp},"name":"category-test"},"name":"test pet","photoUrls":["string"],"tags":[{"id":${timestamp},"name":"tag-name"}],"status":"available"}
