@@ -1,0 +1,19 @@
+name: TestHive Capybara Template 
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  run_tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run All Cucumber Tests
+      run: |
+         chmod +x ./docker-parallel-run.sh
+         ./docker-parallel-run.sh
+      shell: bash
+    - run: echo "🍏 This job's status is ${{ job.status }}."
