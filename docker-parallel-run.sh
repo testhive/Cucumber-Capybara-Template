@@ -11,7 +11,7 @@ docker stop $(docker ps -aq -f "name=th-regression") || true && docker rm $(dock
 features_to_run="features/functional"
 index=0
 
-for file in "$features_to_run"/**/*
+for file in $(find $features_to_run -type f)
 do
     if [ -f "$file" ];
     then
