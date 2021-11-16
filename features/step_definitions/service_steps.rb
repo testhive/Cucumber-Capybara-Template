@@ -29,7 +29,7 @@ When(/^I create a new pet with these details$/) do |table|
                                          payload: pet_body.to_json,
                                          headers: {"Content-Type": "application/json"})
   expect(response.code).to eq 200
-  sleep 3
+  sleep 10
 end
 
 And(/^I query the pet with id "([^"]*)" successfully$/) do |pet_id|
