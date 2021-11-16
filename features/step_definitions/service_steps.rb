@@ -8,7 +8,7 @@ Given(/^I make sure there is no pet with id "([^"]*)"$/) do |pet_id|
   rescue RestClient::NotFound => e
     p "Pet with id: #{pet_id} not found on petstore, continuing operation"
   end
-  sleep 3
+  sleep 10
 end
 
 When(/^I create a new pet with these details$/) do |table|
