@@ -1,6 +1,7 @@
 name: TestHive Capybara Template 
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
   pull_request:
