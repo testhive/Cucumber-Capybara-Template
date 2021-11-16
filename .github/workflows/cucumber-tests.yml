@@ -3,11 +3,11 @@ name: TestHive Capybara Template
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '*/30 * * * *'
 
 jobs:
   run_tests:
