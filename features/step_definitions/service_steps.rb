@@ -43,7 +43,13 @@ end
 Then(/^I delete the pet with id "([^"]*)"$/) do |pet_id|
   url = "https://petstore.swagger.io/v2/pet"
 
-  response = RestClient::Request.execute(method: :delete,
-                                         url: url + "/#{pet_id}")
-  expect(response.code).to eq 200
+  begin
+    response = RestClient::Request.execute(method: :delete,
+                                           url: url + "/#{pet_id}")
+    expect(response.code).to eq 200
+  rescue Exception => e
+    p "There was an error"
+    p e.response.code
+    p e.response.body
+  end
 end
