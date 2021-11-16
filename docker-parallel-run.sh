@@ -5,12 +5,15 @@ mkdir results
 mkdir results/reports
 rm -f results/reports/*
 
+echo "*** Building Image"
 docker build -t testhive-regression .
+echo "*** Stopping possible old instances"
 docker stop $(docker ps -aq -f "name=th-regression") || true && docker rm $(docker ps -aq -f "name=th-regression") || true
 
 features_to_run="features/functional"
 index=0
 
+echo "*** Running tests for feature files"
 for file in $(find $features_to_run -type f)
 do
     if [ -f "$file" ];
@@ -20,7 +23,11 @@ do
         --name th-regression${index} testhive-regression
     fi
 done
+
+echo "*** Waiting for tests to complete"
 result_codes=$(docker wait $(docker ps -q -f "name=th-regression"))
+
+echo "*** Copying results"
 for i in $(seq 1 $index); do
     docker logs th-regression${i} >> results/reports/build_logs.txt
     docker cp th-regression${i}:/app/results/reports results
@@ -29,6 +36,8 @@ done
 temp=$(echo $result_codes | tr -dc '[:alnum:]\n\r')
 exit_codes=${temp//0/}
 exit_codes+="check"
+
+cat results/reports/build_logs.txt
 
 if [[ "$exit_codes" == "check" ]]; then
    exit 0
