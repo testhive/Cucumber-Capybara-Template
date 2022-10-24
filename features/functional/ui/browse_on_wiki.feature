@@ -6,5 +6,5 @@ Feature: Browse categories on Wikipedia
 
   Scenario: Go to science section
     Given I visit wiki home page
-    When I browse to "Science" section
-    Then I should see Science page title
+    When I browse to "History" section
+    Then I should see "History" page title

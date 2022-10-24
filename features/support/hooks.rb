@@ -2,8 +2,12 @@ After do |scenario|
   if scenario.failed?
     tags = scenario.source_tag_names.map(&:downcase).map{|x| x.gsub('@','')}
     unless tags.include?("non-gui") || tags.include?("nongui")
-      encoded_img = page.driver.browser.screenshot_as(:base64)
-      attach("data:image/png;base64,#{encoded_img}", 'image/png')
+      # encoded_img = page.driver.browser.screenshot_as(:base64)
+      # attach("data:image/png;base64,#{encoded_img}", 'image/png')
+      file_path = "./#{replace_whitespaces_with_dash(scenario.name)}.png"
+      page.driver.browser.save_screenshot(file_path)
+      attach(file_path, 'image/png')
+      File.delete(file_path)
     end
   end
 end

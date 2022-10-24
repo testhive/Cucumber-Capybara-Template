@@ -16,9 +16,10 @@ Then(/^There should be no results on page$/) do
 end
 
 When(/^I browse to "([^"]*)" section$/) do |term|
-  find("[title='Portal:#{term}']").click
+  safe_visit "https://en.wikipedia.org/wiki/Wikipedia:Contents"
+  find(".contentsPage__section").find('a[href]', text: term, match: :prefer_exact).click
 end
 
-Then(/^I should see Science page title$/) do
-  expect(page).to have_selector("#Science_portal")
+Then(/^I should see "([^"]*)" page title$/) do |term|
+  expect(page).to have_selector ".mw-page-title-main", text: term
 end

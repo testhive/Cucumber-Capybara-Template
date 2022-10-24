@@ -11,3 +11,7 @@ def safe_visit url
     visit url
   end
 end
+
+def replace_whitespaces_with_dash(str)
+  str.gsub! /\s+/, '_'
+end
